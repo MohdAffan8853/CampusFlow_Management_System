@@ -1,0 +1,232 @@
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f2f7f3">
+    <meta name="description" content="CampusFlow student records and enrollment management">
+    <title>CampusFlow | Student Management</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #19333a;
+        --muted: #647a7c;
+        --teal: #087f75;
+        --teal-dark: #075d59;
+        --coral: #ed765c;
+        --gold: #f0bf5c;
+        --line: rgba(25, 68, 64, .13);
+        --paper: rgba(255, 255, 255, .94);
+      }
+
+      * { box-sizing: border-box; }
+      html { min-width: 0; }
+      body {
+        min-height: 100vh;
+        margin: 0;
+        color: var(--ink);
+        background: #f2f7f3;
+        font-family: "DM Sans", sans-serif;
+      }
+      .scene-canvas {
+        position: fixed;
+        z-index: 0;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+      }
+      body::before {
+        position: fixed;
+        z-index: -1;
+        inset: 0;
+        content: "";
+        background-image: linear-gradient(115deg, rgba(242, 247, 243, .95), rgba(242, 247, 243, .78)), url("{% static 'student.avif' %}");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+      }
+      a { color: var(--teal-dark); }
+      nav {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        min-height: 78px;
+        align-items: center;
+        justify-content: space-between;
+        gap: 28px;
+        padding: 14px max(5vw, 24px);
+        border-bottom: 1px solid rgba(25, 68, 64, .1);
+        background: rgba(255, 255, 255, .88);
+        backdrop-filter: blur(18px);
+      }
+      .heading { flex: 0 0 auto; color: var(--ink); }
+      .heading h4 {
+        margin: 0;
+        font: 800 19px/1.1 "Manrope", sans-serif;
+        letter-spacing: 0;
+      }
+      .heading h4::before {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        margin: 0 10px 1px 0;
+        border-radius: 3px;
+        background: var(--coral);
+        box-shadow: 5px 4px 0 var(--gold);
+        content: "";
+      }
+      .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 6px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      .nav-links a {
+        display: block;
+        padding: 10px 13px;
+        border-radius: 7px;
+        color: #536b6d;
+        font-size: 13px;
+        font-weight: 700;
+        text-decoration: none;
+        transition: background .2s ease, color .2s ease, transform .2s ease;
+      }
+      .nav-links a:hover, .nav-links a.active {
+        color: #fff;
+        background: var(--teal);
+        transform: translateY(-1px);
+      }
+      main {
+        position: relative;
+        z-index: 1;
+        width: min(1180px, calc(100% - 48px));
+        margin: 42px auto 72px;
+        animation: arrive .55s both;
+      }
+      @keyframes arrive {
+        from { opacity: 0; transform: translateY(12px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      h1, h2, h3 { font-family: "Manrope", sans-serif; }
+      main > h1 {
+        margin: 0 0 22px;
+        font-size: clamp(25px, 3vw, 36px);
+        line-height: 1.18;
+        text-align: left;
+      }
+      main > p { color: var(--muted); line-height: 1.7; }
+      main > form {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: clamp(22px, 4vw, 42px) !important;
+        border: 1px solid rgba(255, 255, 255, .9);
+        border-radius: 12px;
+        background: var(--paper);
+        box-shadow: 0 22px 65px rgba(34, 79, 70, .12);
+      }
+      .container {
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+      }
+      .container h1 { margin: 0 0 8px; font-size: 30px; text-align: left; }
+      .container p { margin: 0 0 15px; color: var(--muted); line-height: 1.6; text-align: left; }
+      label { margin: 13px 0 7px; color: #385456; font-size: 13px; font-weight: 700; }
+      input, select {
+        width: 100%;
+        min-height: 46px;
+        padding: 11px 13px;
+        border: 1px solid #d5e2dc;
+        border-radius: 6px;
+        outline: none;
+        color: var(--ink);
+        background: #fbfdfb;
+        font: inherit;
+        transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
+      }
+      input:focus, select:focus {
+        border-color: var(--teal);
+        background: #fff;
+        box-shadow: 0 0 0 3px rgba(8, 127, 117, .12);
+      }
+      button, .button-link {
+        display: inline-flex;
+        min-height: 46px;
+        align-items: center;
+        justify-content: center;
+        margin-top: 20px;
+        padding: 0 22px;
+        border: 0;
+        border-radius: 6px;
+        color: #fff;
+        background: var(--teal);
+        box-shadow: 0 8px 18px rgba(8, 127, 117, .2);
+        cursor: pointer;
+        font: 700 14px "DM Sans", sans-serif;
+        text-decoration: none;
+        transition: background .2s ease, transform .2s ease;
+      }
+      button:hover, .button-link:hover { background: var(--teal-dark); transform: translateY(-2px); }
+      .alert {
+        margin: 0 auto 18px;
+        padding: 14px 18px;
+        border: 1px solid #b9dfce;
+        border-radius: 7px;
+        color: #245c4b;
+        background: #e7f6ed;
+      }
+      .alert-warning { border-color: #f3d9a3; color: #75551b; background: #fff6dd; }
+      .close { min-height: auto; margin: 0 0 0 14px; padding: 0 5px; background: transparent; box-shadow: none; color: inherit; }
+      .close:hover { background: transparent; color: var(--ink); transform: none; }
+      main > table {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        border: 1px solid #dce8e2;
+        border-radius: 9px;
+        border-spacing: 0;
+        background: var(--paper);
+        box-shadow: 0 16px 42px rgba(34, 79, 70, .1);
+        white-space: nowrap;
+      }
+      th, td { padding: 14px 16px; border: 0; border-bottom: 1px solid #e7eee9; text-align: left; }
+      thead th { color: #fff; background: var(--teal-dark); font-size: 12px; letter-spacing: .03em; }
+      tbody tr:nth-child(even) { background: #f4f9f6; }
+      tbody tr:hover { background: #eaf5ee; }
+      tbody tr:last-child th, tbody tr:last-child td { border-bottom: 0; }
+      td a { font-size: 13px; font-weight: 700; text-decoration: none; }
+      td a:hover { color: var(--coral); text-decoration: underline; }
+      @media (max-width: 760px) {
+        nav { align-items: flex-start; flex-direction: column; gap: 10px; padding: 16px 22px; }
+        .nav-links { justify-content: flex-start; gap: 3px; }
+        .nav-links a { padding: 9px 10px; }
+        main { width: min(100% - 28px, 680px); margin: 28px auto 48px; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after { animation-duration: .01ms !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <div class="heading">
+        <h4>CampusFlow</h4>
+      </div>
+      <ul class="nav-links">
+        <li><a class="{% if request.path == '/' %}active{% endif %}" href="/">Overview</a></li>
+        <li><a class="{% if '/reg' in request.path %}active{% endif %}" href="/reg/">Enroll</a></li>
+        <li><a class="{% if '/all_stu' in request.path %}active{% endif %}" href="/all_stu/">Students</a></li>
+        <li><a class="{% if '/search_stu' in request.path %}active{% endif %}" href="/search_stu">Search</a></li>
+        <li><a class="{% if '/delete_stud' in request.path or '/update_student' in request.path %}active{% endif %}" href="/delete_stud">Manage</a></li>
+        <li><a href="/admin/">Admin portal</a></li>
+      </ul>
+    </nav>
+    <canvas class="scene-canvas" data-campusflow-scene aria-hidden="true"></canvas>
+    <script type="module" src="{% static 'campusflow-background.js' %}"></script>

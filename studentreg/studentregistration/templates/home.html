@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+ {% include "base.html" %}
+    <main class="home-main">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">STUDENT RECORDS, MADE SIMPLE</p>
+          <h1>Make room for<br><span>what comes next.</span></h1>
+          <p class="hero-description">A clear, dependable workspace for student enrollment and records. Keep every detail organized, searchable, and ready when you need it.</p>
+          <div class="hero-actions">
+            <a class="button-link" href="/reg/">Start an enrollment <span aria-hidden="true">&#8594;</span></a>
+            <a class="text-link" href="/all_stu/">Browse student records</a>
+            <a class="admin-link" href="/admin/">Open admin portal <span aria-hidden="true">&#8599;</span></a>
+          </div>
+          <div class="hero-note"><span class="note-mark" aria-hidden="true"></span>One thoughtful place for your student community</div>
+        </div>
+        <div class="hero-visual" aria-label="Student community illustration">
+          <div class="hero-photo"></div>
+          <div class="visual-caption"><span>YOUR CAMPUS, IN VIEW</span><strong>Every student has a place here.</strong></div>
+          <div class="visual-index" aria-hidden="true">01</div>
+        </div>
+      </section>
+      <section class="home-footer" aria-label="CampusFlow tools">
+        <span>ENROLLMENT</span><span>STUDENT RECORDS</span><span>QUICK SEARCH</span>
+      </section>
+    </main>
+    <style>
+      .home-main { width: min(1240px, calc(100% - 48px)); margin-top: clamp(30px, 6vh, 68px); }
+      .hero { display: grid; min-height: 500px; grid-template-columns: 1fr 1fr; align-items: center; gap: 5vw; }
+      .hero-copy { position: relative; z-index: 1; padding: 28px 0; }
+      .eyebrow { margin: 0 0 22px; color: var(--teal); font-size: 11px; font-weight: 800; letter-spacing: .16em; }
+      .hero h1 { margin: 0; font-size: clamp(42px, 5.2vw, 68px); line-height: 1.04; letter-spacing: 0; }
+      .hero h1 span { color: var(--teal); }
+      .hero-description { max-width: 490px; margin: 24px 0 0; color: #5c7375; font-size: 16px; line-height: 1.75; }
+      .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 22px; margin-top: 30px; }
+      .hero-actions .button-link { gap: 14px; margin: 0; }
+      .hero-actions .button-link span { font-size: 18px; }
+      .text-link { color: var(--teal-dark); font-size: 13px; font-weight: 700; text-decoration-color: rgba(7, 93, 89, .35); text-underline-offset: 4px; }
+      .admin-link { display: inline-flex; align-items: center; gap: 8px; padding: 11px 14px; border: 1px solid rgba(8, 127, 117, .25); border-radius: 6px; color: var(--teal-dark); font-size: 13px; font-weight: 700; text-decoration: none; transition: background .2s ease, border-color .2s ease; }
+      .admin-link:hover { border-color: var(--teal); background: rgba(255, 255, 255, .78); }
+      .hero-note { display: flex; align-items: center; gap: 10px; margin-top: 50px; color: #728587; font-size: 12px; }
+      .note-mark { width: 8px; height: 8px; border-radius: 50%; background: var(--coral); box-shadow: 0 0 0 5px rgba(237, 118, 92, .13); }
+      .hero-visual { position: relative; min-height: 420px; perspective: 1100px; }
+      .hero-photo { position: absolute; inset: 12px 8px 35px 20px; overflow: hidden; border: 9px solid rgba(255, 255, 255, .84); border-radius: 13px; background: url("{% static 'student.avif' %}") center / cover no-repeat; box-shadow: 24px 28px 70px rgba(35, 83, 73, .22); transform: rotateY(-9deg) rotateX(3deg) rotateZ(1deg); transform-style: preserve-3d; }
+      .hero-photo::after { position: absolute; inset: 0; border: 1px solid rgba(255, 255, 255, .42); background: linear-gradient(145deg, rgba(8, 127, 117, .02), rgba(8, 127, 117, .25)); content: ""; }
+      .visual-caption { position: absolute; right: 3px; bottom: 6px; display: flex; width: min(260px, 72%); flex-direction: column; gap: 6px; padding: 17px 19px; border-left: 4px solid var(--coral); background: #fff; box-shadow: 0 14px 35px rgba(35, 83, 73, .16); transform: translateZ(42px); }
+      .visual-caption span { color: var(--teal); font-size: 9px; font-weight: 800; letter-spacing: .14em; }
+      .visual-caption strong { font: 700 14px/1.4 "Manrope", sans-serif; }
+      .visual-index { position: absolute; top: -19px; right: -3px; color: var(--coral); font: 800 14px "Manrope", sans-serif; }
+      .home-footer { display: flex; justify-content: space-between; gap: 16px; margin-top: 22px; padding: 19px 0; border-top: 1px solid var(--line); color: #708282; font-size: 10px; font-weight: 800; letter-spacing: .12em; }
+      @media (max-width: 760px) {
+        .home-main { width: min(100% - 36px, 600px); }
+        .hero { grid-template-columns: 1fr; gap: 18px; }
+        .hero-copy { padding: 10px 0 0; }
+        .hero h1 { font-size: clamp(40px, 10vw, 56px); }
+        .hero-note { margin-top: 28px; }
+        .hero-visual { min-height: 310px; }
+        .home-footer { flex-wrap: wrap; justify-content: flex-start; gap: 12px 24px; }
+      }
+    </style>
+  </body>
+</html>
+
